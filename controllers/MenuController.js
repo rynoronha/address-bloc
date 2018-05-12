@@ -9,6 +9,7 @@ const inquirer = require('inquirer');
           message: "Please choose from an option below: ",
           choices: [
             "Add new contact",
+            "Get current date",
             "Exit"
           ]
        }
@@ -25,6 +26,9 @@ const inquirer = require('inquirer');
            break;
          case "Exit":
            this.exit();
+         case "Get current date":
+           this.getDate();
+           break;
          default:
            console.log("Invalid input");
            this.main();
@@ -42,6 +46,17 @@ const inquirer = require('inquirer');
    addContact(){
      this.clear();
      console.log('addContact called');
+     this.main();
+   }
+
+   getDate(){
+     this.clear();
+     var today = new Date();
+     var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+     var day = today.getDate();
+     var month = months[today.getMonth()];
+     var year = today.getFullYear();
+     console.log(month + "/" + day + "/" + year);
      this.main();
    }
 
