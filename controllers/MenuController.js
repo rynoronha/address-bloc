@@ -69,4 +69,8 @@ const inquirer = require('inquirer');
      process.exit();
    }
 
+   remindMe(){
+     return "Learning is a life-long pursuit";
+   }
+
  }
