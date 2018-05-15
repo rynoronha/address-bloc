@@ -10,6 +10,7 @@ const ContactController = require("./ContactController");
           message: "Please choose from an option below: ",
           choices: [
             "Add new contact",
+            "View all contacts",
             "Get current date",
             "Exit"
           ]
@@ -25,6 +26,9 @@ const ContactController = require("./ContactController");
          case "Add new contact":
            this.addContact();
            break;
+         case "View all contacts":
+            this.getContacts();
+            break;
          case "Exit":
            this.exit();
          case "Get current date":
@@ -47,7 +51,7 @@ const ContactController = require("./ContactController");
    addContact(){
      this.clear();
      inquirer.prompt(this.book.addContactQuestions).then((answers) => {
-       this.book.addContact(answers.name, answers.phone).then((contact) => {
+       this.book.addContact(answers.name, answers.phone, answers.email).then((contact) => {
          console.log("Contact added successfully!");
          this.main();
        }).catch((err) => {
@@ -80,6 +84,25 @@ const ContactController = require("./ContactController");
 
    remindMe(){
      return "Learning is a life-long pursuit";
+   }
+
+   getContacts(){
+     this.clear();
+
+     this.book.getContacts().then((contacts) => {
+       for (let contact of contacts) {
+         console.log(`
+         name: ${contact.name}
+         phone number: ${contact.phone}
+         email: ${contact.email}
+         ---------------`
+         );
+       }
+       this.main();
+     }).catch((err) => {
+       console.log(err);
+       this.main();
+     });
    }
 
  }
